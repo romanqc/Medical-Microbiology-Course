@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIRD Simulator — Medical Microbiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="masthead">
+    <div class="masthead-title">
+      <span class="eyebrow">Medical Microbiology — Simulation Lab</span>
+      <h1>SIRD Compartmental Model</h1>
+    </div>
+
+    <div class="telemetry" id="telemetry" aria-label="Live population readout">
+      <div class="telemetry-item">
+        <span class="telemetry-label">Population</span>
+        <span class="telemetry-value" id="pop-count">—</span>
+      </div>
+      <div class="telemetry-item">
+        <span class="telemetry-label">Day</span>
+        <span class="telemetry-value" id="day-count">—</span>
+      </div>
+      <div class="telemetry-item delta">
+        <span class="telemetry-label">Births</span>
+        <span class="telemetry-value">+<span id="birth-count">0</span></span>
+      </div>
+      <div class="telemetry-item delta deceased">
+        <span class="telemetry-label">Deaths</span>
+        <span class="telemetry-value">−<span id="death-count">0</span></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage">
+
+    <section class="canvas-panel" id="canvas-container"></section>
+
+    <aside class="control-panel">
+      <div class="control-panel-scroll">
+
+        <section class="control-group">
+          <h2>Population</h2>
+
+          <label class="control">
+            <span class="control-label">Starting population <output id="out-startPop">250</output></span>
+            <input type="range" id="startPop" min="20" max="600" step="10" value="250">
+          </label>
+
+          <label class="control">
+            <span class="control-label">Initial infected <output id="out-startInfected">1</output></span>
+            <input type="range" id="startInfected" min="1" max="20" step="1" value="1">
+          </label>
+        </section>
+
+        <section class="control-group">
+          <h2>Transmission</h2>
+
+          <label class="control">
+            <span class="control-label">Contact radius <output id="out-infectionRadius">12</output> px</span>
+            <input type="range" id="infectionRadius" min="4" max="30" step="1" value="12">
+          </label>
+
+          <label class="control">
+            <span class="control-label">Transmission chance <output id="out-infectionChance">25</output>%</span>
+            <input type="range" id="infectionChance" min="0" max="100" step="1" value="25">
+          </label>
+        </section>
+
+        <section class="control-group">
+          <h2>Course of Illness</h2>
+
+          <label class="control">
+            <span class="control-label">Recovery time <output id="out-recoveryTime">600</output> frames</span>
+            <input type="range" id="recoveryTime" min="60" max="1800" step="10" value="600">
+          </label>
+
+          <label class="control">
+            <span class="control-label">Case fatality rate <output id="out-deathRate">3</output>%</span>
+            <input type="range" id="deathRate" min="0" max="80" step="1" value="3">
+          </label>
+        </section>
+
+        <section class="control-group">
+          <h2>Vital Dynamics</h2>
+
+          <label class="control">
+            <span class="control-label">Birth rate <output id="out-birthRate">0</output> / 1,000 person-frames</span>
+            <input type="range" id="birthRate" min="0" max="50" step="1" value="0">
+          </label>
+        </section>
+
+        <div class="control-actions">
+          <button id="btn-apply" class="btn btn-primary" type="button">Apply &amp; Restart</button>
+          <button id="btn-pause" class="btn" type="button">Pause</button>
+        </div>
+
+        <section class="control-group legend">
+          <h2>Legend</h2>
+          <ul>
+            <li><span class="swatch susceptible"></span> Susceptible</li>
+            <li><span class="swatch infected"></span> Infected</li>
+            <li><span class="swatch recovered"></span> Recovered</li>
+            <li><span class="swatch deceased"></span> Deceased</li>
+          </ul>
+        </section>
+
+      </div>
+    </aside>
+
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<script src="models/disease.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
